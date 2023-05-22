@@ -1,0 +1,20 @@
+{
+   
+    "name": "scandiweb/test-task",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App",
+            "TestTask\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "shaimaa"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "symfony/var-dumper": "^6.2",
+        "defuse/php-encryption": "^2.3"
+    }
+}
