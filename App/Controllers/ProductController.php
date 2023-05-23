@@ -133,7 +133,7 @@ class ProductController extends Controller
 
    // $product_id = $allProduct->id;
 
-    if (request('type') === 'book') {
+    if (request('type') == 'book') {
         $validator->setRules([
             'weight' => 'required',
         ]);
@@ -151,7 +151,7 @@ class ProductController extends Controller
             'product_id' =>$this->pdo->lastInsertId(),  
             'weight' => request('weight'),
         ]);
-        } elseif (request('type') === 'dvd') {
+        } elseif (request('type') =='dvd') {
         $validator->setRules([
             'size' => 'required',
         ]);
@@ -169,7 +169,7 @@ class ProductController extends Controller
             'product_id' =>$this->pdo->lastInsertId(),  
             'size' => request('size'),
         ]);
-    } elseif (request('type') === 'furniture') {
+    } elseif (request('type') == 'furniture') {
         $validator->setRules([
             'height' => 'required',
             'width' => 'required',
