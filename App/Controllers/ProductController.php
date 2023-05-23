@@ -73,6 +73,7 @@ class ProductController extends Controller
         $products = array();
         foreach ($results as $row) {
             $products[] = array(
+                'product_id' => $row['product_id'],
                 'sku' => $row['sku'],
                 'name' => $row['name'],
                 'price' => $row['price'],
@@ -197,55 +198,47 @@ class ProductController extends Controller
     return back();
 }
 
-    
+        
     public function massDelete()
     {
+        $type = $_POST['type']; 
+        $productIds = $_POST['productIds'];
+       //var_dump($productIds);
+        try {
+            foreach ($productIds as $id) {
+                if ($type == 'book') {
+                    $query = "DELETE FROM books WHERE product_id = :id";
+                } elseif ($type == 'dvd') {
+                    $query = "DELETE FROM dvds WHERE product_id = :id";
+                } elseif ($type == 'furniture') {
+                    $query = "DELETE FROM furnitures WHERE product_id = :id";
+                }
 
-     $productIds =$_POST['productIds'];
+              
 
-        foreach ($productIds as $id ) {
-            //DELETING product special attr from BOOKS table
-        if($type == 'book'){
-            $query = "DELETE FROM books WHERE product_id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-            $stmt->execute();
+                $query = "DELETE FROM allproducts WHERE id = :id";
+                $stmt = $this->pdo->prepare($query);
+                $stmt->bindParam(':id', $id);
+                $stmt->execute();
+            }
 
-            $query = "DELETE FROM products WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-
-       $stmt->execute();
-        } elseif($type == 'dvd'){
-            $query = "DELETE FROM dvds WHERE product_id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);    
-            $stmt->execute();
-
-            $query = "DELETE FROM products WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-
-            $stmt->execute();
-     
-        } elseif($type == 'furniture'){
-            $query = "DELETE FROM furnitures WHERE product_id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-     
-            $stmt->execute();
-              $query = "DELETE FROM products WHERE id = :id";
-            $stmt = $this->pdo->prepare($query);
-            $stmt->bindParam(':id', $id);
-
-            $stmt->execute();
+            $response = [
+                'message' => 'Product deleted successfully',
+                'status' => 200
+            ];
+        } catch (PDOException $e) {
+            // Handle any database errors here
+            $response = [
+                'message' => 'Error deleting products: ' . $e->getMessage(),
+                'status' => 500
+            ];
+            
         }
-        }
-       $response =[
-        'message'=>'Product deleted successfully',
-        'status'=> 200
-       ];  
-   
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        return jsonResponse($response);
+       
     }
+
 
 }
