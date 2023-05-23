@@ -11,7 +11,7 @@
     <button class="btn btn-primary" type="button" id="search-btn">Search</button>
     </div>
 
-        <div class="row justify-content-center justify-content-sm-start">
+        <div class="row justify-content-center justify-content-sm-start" id="product-list">
             <?php foreach ($products as $product) : ?>
                 <div class="col-10 col-sm-6 col-md-4 col-lg-3 my-3">
 
@@ -40,30 +40,83 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-    // handle click event on search button
-    $('#search-btn').click(function() {
-     // console.log(123);
-        var sku = $('#search-input').val();
-        
-        // send AJAX request to server to get product data
-        $.ajax({
-            url: '/api/product/' + sku,
-            type: 'GET',
-            success: function(response) {
-                // handle success response
-                console.log(response);
-            },
-            error: function(error) {
-                // handle error response
-                console.log(error);
-            }
+        $('#search-btn').click(function() {
+            var sku = $('#search-input').val();
+
+            // Make the AJAX request
+            $.ajax({
+                url: '/api/product/' + sku,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        // Product not found
+                        $('#product-list').empty().append('<p>' + response.error + '</p>');
+                    } else {
+                        // Product found, update the product card
+                        var productHtml = '<div class="col-10 col-sm-6 col-md-4 col-lg-3 my-3">' +
+                            '<div class="card border border-secondary rounded-lg">' +
+                            '<div class="card-body text-center">' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input delete-checkbox DVD" name="' + response.product_id + '" type="checkbox" value="' + response.type + '" id="flexCheckDefault">' +
+                            '</div>' +
+                            '<h6>' + response.sku + '</h6>' +
+                            '<h6>' + response.name + '</h6>' +
+                            '<h6>' + parseFloat(response.price).toFixed(2) + ' $</h6>' +
+                            '<h6>' + response.details_title + ': ' + response.details + '</h6>' +
+                            '</div></div></div>';
+
+                        $('#product-list').empty().append(productHtml);
+                    }
+                },
+                error: function() {
+                    $('#product-list').empty().append('<p>Error occurred while retrieving the product.</p>');
+                }
+            });
         });
     });
-});
-
-
 </script>
- 
+
+<script>
+    $(document).ready(function() {
+        $('#search-btn').click(function() {
+            var sku = $('#search-input').val();
+
+            // Make the AJAX request
+            $.ajax({
+                url: '/api/product/' + sku,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        // Product not found
+                        $('#product-list').empty().append('<p>' + response.error + '</p>');
+                    } else {
+                        // Product found, update the product card
+                        var productHtml = '<div class="col-10 col-sm-6 col-md-4 col-lg-3 my-3">' +
+                            '<div class="card border border-secondary rounded-lg">' +
+                            '<div class="card-body text-center">' +
+                            '<div class="form-check">' +
+                            '<input class="form-check-input delete-checkbox DVD" name="' + response.product_id + '" type="checkbox" value="' + response.type + '" id="flexCheckDefault">' +
+                            '</div>' +
+                            '<h6>' + response.sku + '</h6>' +
+                            '<h6>' + response.name + '</h6>' +
+                            '<h6>' + parseFloat(response.price).toFixed(2) + ' $</h6>' +
+                            '<h6>' + response.details_title + ': ' + response.details + '</h6>' +
+                            '</div></div></div>';
+
+                        $('#product-list').empty().append(productHtml);
+                    }
+                },
+                error: function() {
+                    $('#product-list').empty().append('<p>NO PRODUCT FOUND.</p>');
+                }
+            });
+        });
+    });
+</script>
+
+
 <script>
     
     // Define function to handle mass delete action

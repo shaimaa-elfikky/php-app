@@ -16,7 +16,8 @@ class Route
     }
 
     public static function get($route, $action)
-    {
+    { 
+        $route = preg_replace('/\{(\w+)\}/', '(?P<$1>\w+)', $route);
         self::$routes['get'][$route] = $action;
     }
 
@@ -26,32 +27,39 @@ class Route
     }
 
     public function resolve()
-    {
-        $path = $this->request->path();
-        $method = $this->request->method();
+{
+    $path = $this->request->path();
+    $method = $this->request->method();
 
-        $action = self::$routes[$method][$path] ?? false;
+    $action = null;
+    $params = [];
 
-        if (!array_key_exists($path, self::$routes[$method])) {
-            //view('404');
-            $this->response->setStatusCode(404);
-            View::makeError('404');
-        }
+    foreach (self::$routes[$method] as $route => $routeAction) {
+        // Check if the route matches the requested path
+        if (preg_match('#^' . $route . '$#', $path, $matches)) {
+            $action = $routeAction;
 
+            // Extract parameter values from the matched route
+            foreach ($matches as $key => $value) {
+                if (is_string($key)) {
+                    $params[$key] = $value;
+                }
+            }
 
-
-        // if(!$action)
-        // {
-        // return;
-        // }
-
-
-        if (is_callable($action)) {
-            call_user_func_array($action, []);
-        }
-
-        if (is_array($action)) {
-            call_user_func_array([new $action[0], $action[1]], []);
+            break;
         }
     }
+
+    if ($action === null) {
+        View::makeError('404');
+    }
+
+    if (is_callable($action)) {
+        call_user_func_array($action, [$params]);
+    }
+
+    if (is_array($action)) {
+        call_user_func_array([new $action[0], $action[1]], [$params]);
+    }
+}
 }
