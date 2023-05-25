@@ -73,11 +73,11 @@
             var extraFields = document.getElementById("extraFields");
             var errorContainer = document.getElementById("errorContainer");
 			if (type == "book") {
-				extraFields.innerHTML = '<label for="weight">Weight:</label>  <input type="text" name="weight" id="weight"><br><br>';
+				extraFields.innerHTML = '<label for="weight">Weight:</label>  <input type="text" name="weight" id="weight"><br><br><p>“Please, provide weight”</p>';
 			} else if (type == "dvd") {
-				extraFields.innerHTML = '<label for="size">Size:</label>  <input type="text" name="size" id="size"><br><br>';
+				extraFields.innerHTML = '<label for="size">Size:</label>  <input type="text" name="size" id="size"><br><br><p>“Please, provide size”</p>';
 			} else if (type == "furniture") {
-				extraFields.innerHTML = '<label for="height">Height:</label>  <input type="text" name="height" id="height"><br><br><label for="width">Width:</label>  <input type="text" name="width" id="width"><br><br><label for="length">Length:</label> <input type="text" name="length" id="length"><br><br>';
+				extraFields.innerHTML = '<label for="height">Height:</label>  <input type="text" name="height" id="height"><br><br><label for="width">Width:</label>  <input type="text" name="width" id="width"><br><br><label for="length">Length:</label> <input type="text" name="length" id="length"><br><br><p>“Please, provide height, width and length”  </p>';
 			}
 
                     // Check if error flash message exists
