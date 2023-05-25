@@ -10,13 +10,17 @@ class ValidatorTest extends TestCase
         $validator = new Validator();
 
         $validator->setRules([
-            'name' => 'required|alnum|between:8,32',
-            'username' => 'required|alnum|between:8,32',
+            'name' => 'required|unique:allproducts,name',
+            'sku' => 'required|unique:allproducts,sku',
+            'price' => 'required',
+            'type' => 'required',
         ]);
 
         $validator->make([
-            'name' => 'ahmed osama',
-            'username' => 'ahmedosama_st'
+            'name' => 'chair',
+            'sku' => 'sku123',
+            'price' => '50',
+            'type' => 'book',
         ]);
 
 		$this->assertTrue($validator->passes());

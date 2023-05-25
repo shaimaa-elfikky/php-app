@@ -15,28 +15,28 @@ class RequiredRuleTest extends TestCase
 
     public function test_it_fails_if_given_input_is_empty()
     {
-        $username = '';
+        $sku = '';
 
         $rule = new RequiredRule();
 
         $this->assertFalse(
             $rule->apply(
-                'username',
-                $username
+                'sku',
+                $sku
             )
         );
     }
 
     public function test_it_passes_if_given_input_has_a_value()
     {
-        $username = 'ahmedosama-st';
+        $username = 'sku123';
 
         $rule = new RequiredRule();
 
         $this->assertTrue(
             $rule->apply(
-                'username',
-                $username
+                'sku',
+                $sku
             )
         );
     }

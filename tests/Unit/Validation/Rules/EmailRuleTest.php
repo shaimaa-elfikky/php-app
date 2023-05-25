@@ -15,7 +15,7 @@ class EmailRuleTest extends TestCase
 
     public function test_it_passes_if_email_is_valid()
     {
-        $email = 'shaimaa_elfikky79@outlook.com';
+        $email = 'shaimaa_elfikk79@outlook.com';
 
         $rule = new EmailRule();
 
@@ -26,7 +26,7 @@ class EmailRuleTest extends TestCase
 
     public function test_it_fails_if_email_is_not_valid()
     {
-        $email = 'ahmed@1.c';
+        $email = 'shaimaa@12';
 
         $rule = new EmailRule();
 

@@ -27,10 +27,10 @@ class ArrTest extends TestCase
     public function test_it_checks_for_accessible_values()
     {
         $data = [
-            'username' => 'shaimaa',
+            'username' => 'ahmedosama_st',
             'emails' => [
-                'primary' => 'shaimaa_elfikky79@outlook.com',
-                'secondary' => 'shimo11shimo11@hotmail.com'
+                'primary' => 'ahmedosama@sectheater.io',
+                'secondary' => 'ahmedosama.sectheater@gmail.com'
             ]
         ];
 
@@ -41,10 +41,10 @@ class ArrTest extends TestCase
     public function test_it_checks_for_data_existence()
     {
         $data = [
-            'username' => 'shaimaa',
+            'username' => 'ahmedosama_st',
             'emails' => [
-                'primary' => 'shaimaa_elfikky79@outlook.com',
-                'secondary' => 'shimo11shimo11@hotmail.com'
+                'primary' => 'ahmedosama@sectheater.io',
+                'secondary' => 'ahmedosama.sectheater@gmail.com'
             ]
         ];
 
@@ -55,10 +55,10 @@ class ArrTest extends TestCase
     public function test_it_modifies_an_item_with_its_key_or_index()
     {
         $data = [
-            'shaimaa',
+            'ahmed_osama',
             'emails' => [
-                'primary' => 'shaimaa_elfikky79@outlook.com',
-                'secondary' => 'shimo11shimo11@hotmail.com'
+                'primary' => 'ahmedosama@sectheater.io',
+                'secondary' => 'ahmedosama.sectheater@gmail.com'
             ]
         ];
 
@@ -73,14 +73,14 @@ class ArrTest extends TestCase
     {
         $array = [1, 2, 3, 4, 5];
 
-        Arr::set($array, null, 'shaimaa');
+        Arr::set($array, null, 'ahmed');
 
-        $this->assertEquals('shaimaa', $array);
+        $this->assertEquals('ahmed', $array);
     }
 
     public function test_it_adds_items_to_a_specific_array()
     {
-        $array = ['shaimaa', 'mahmoud', 'khaled'];
+        $array = ['ahmed', 'mahmoud', 'khaled'];
 
         $newArray = Arr::add($array, count($array), 'ismael');
 
@@ -89,7 +89,7 @@ class ArrTest extends TestCase
 
     public function test_it_does_not_modify_items_when_adding_new_ones()
     {
-        $array = ['username' => 'shaimaa', 'password' => '123456'];
+        $array = ['username' => 'ahmed', 'password' => '123456'];
 
         $newArray = Arr::add($array, 'username', 'ahmedosama-st');
 
@@ -170,8 +170,8 @@ class ArrTest extends TestCase
     {
         $users = [
             'ahmedosama' => [
-                'username' => 'shaimaa',
-                'email' => 'shaimaa_elfikky79@outlook.com'
+                'username' => 'ahmedosama',
+                'email' => 'ahmedosama@sectheater.io'
             ],
             'mahmoudkhaled' => [
                 'username' => 'mahmoudkhaled',
@@ -218,8 +218,8 @@ class ArrTest extends TestCase
         $users = [
             'ahmedosama' => [
                 'emails' => [
-                    'primary' => 'shaimaa_elfikky79@outlook.com',
-                    'secondary' => 'shimo11shimo11@hotmail.com'
+                    'primary' => 'ahmedosama@sectheater.io',
+                    'secondary' => 'ahmedosama.sectheater@gmail.com'
                 ]
             ]
         ];
@@ -263,7 +263,7 @@ class ArrTest extends TestCase
     public function test_it_returns_null_or_a_custom_default_value_if_key_does_not_exist()
     {
         $user = [
-            'username' => 'shaimaa',
+            'username' => 'ahmedosama',
             'password' => 'secret'
         ];
 
@@ -275,14 +275,14 @@ class ArrTest extends TestCase
     public function test_it_returns_everything_in_an_array_except_given_keys()
     {
         $users = [
-            'first' => ['email' => 'shaimaa_elfikky79@outlook.com'],
+            'first' => ['email' => 'ahmedosama@sectheater.io'],
             'second' => ['email' => 'mahmoudkhaled@gmail.com'],
             'third' => ['email' => 'azzamismael@gmail.com']
         ];
 
         $this->assertSame(
             [
-                'first' => ['email' => 'shaimaa_elfikky79@outlook.com']
+                'first' => ['email' => 'ahmedosama@sectheater.io']
             ],
             Arr::except($users, ['second', 'third'])
         );
