@@ -5,7 +5,7 @@ use App\Models\User;
 use TestTask\Validation\Validator;
 use TestTask\Database\Managers\MySQLManager;
 use TestTask\Database\DB;
-//use TestTask\View\View;
+
 
 
 class UserController extends Controller

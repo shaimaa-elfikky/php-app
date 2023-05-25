@@ -98,27 +98,4 @@
 			document.getElementById("extraFields").innerHTML = "";
 		}
 	</script>
-    <!-- <script>
 
-        document.getElementById('create-product-form').addEventListener('submit', function(event) {
-        event.preventDefault(); // prevent the form from submitting normally
-
-        // Retrieve the form data
-        const formData = new FormData(event.target);
-
-        // Send a POST request to the API endpoint
-        fetch('/insertProduct', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Display a success message to the user
-            alert(data.message);
-        })
-        .catch(error => {
-            // Display an error message to the user
-            alert('An error occurred while creating the product: ' + error.message);
-        });
-        });
-</script> -->

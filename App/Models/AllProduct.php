@@ -14,8 +14,7 @@ class Allproduct extends Model {
     private $name;
     private $price;
     private $type;
-    
-    // Constructor
+   
     
 
     

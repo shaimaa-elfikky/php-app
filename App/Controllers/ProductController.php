@@ -10,7 +10,7 @@ use TestTask\Database\Managers\MySQLManager;
 use TestTask\Http\Request;
 use TestTask\Http\Response;
 use TestTask\Database\DB;
-//use TestTask\View\View;
+
 
 
 class ProductController extends Controller
@@ -35,7 +35,7 @@ class ProductController extends Controller
         $stmt->bindValue(':sku', implode(',', $sku));
         $stmt->execute();
         $result = $stmt->fetch();
-       // $product=[];
+     
         if (!$result) {
             header('Content-Type: application/json');
            // echo json_encode($result);
@@ -88,9 +88,7 @@ class ProductController extends Controller
             );
         }
 
-       // header('Content-Type: application/json');
-        // echo json_encode($products);
-       // return jsonResponse($products);
+       
        return view('product.index', ['products' => $products]);
   
      
@@ -227,7 +225,7 @@ class ProductController extends Controller
                 'status' => 200
             ];
         } catch (PDOException $e) {
-            // Handle any database errors here
+            // Handle  database errors 
             $response = [
                 'message' => 'Error deleting products: ' . $e->getMessage(),
                 'status' => 500
