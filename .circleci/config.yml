@@ -1,8 +1,29 @@
-version: 2.1
+version: 2
 jobs:
   build:
     docker:
-      - image: circleci/php:8.2.5-apache-buster
+      - image: circleci/php:7.4
     steps:
       - checkout
-      - run: echo "Hello World"
+      - run: composer install
+  deploy:
+    docker:
+      - image: circleci/php:8.2.5 
+    steps:
+      - checkout
+      - run:
+          name: Deploy to AWS
+          command: |
+            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+            aws configure set default.region us-east-1
+            aws elasticbeanstalk create-application-version --application-name php-app --version-label v1 --source-bundle S3Bucket=php-bucket,S3Key=php-app.zip
+            aws elasticbeanstalk update-environment --environment-name my-environment --version-label v1
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
